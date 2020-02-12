@@ -15,7 +15,6 @@
 
 <style lang="scss" scoped>
 
-
     .notes {
         background: #f5f5f5;
         display: flex;

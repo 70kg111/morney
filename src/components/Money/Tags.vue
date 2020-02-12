@@ -29,7 +29,6 @@
         > .current {
             display: flex;
             flex-wrap: wrap;
-            overflow: auto;
 
             > li {
                 margin-top: 4px;

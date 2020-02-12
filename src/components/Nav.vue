@@ -32,7 +32,7 @@
         display: flex;
         @extend %outerShadow;
         flex-direction:row;
-        font-size: 14px;
+        font-size: 12px;
         > .item {
             width:33.333%;
             display:flex;
