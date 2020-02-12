@@ -2,7 +2,7 @@
     <div>
         <Layout class-prefix="layout">
 
-            <Tags></Tags>
+            <Tags :dataSource.sync="tags"></Tags>
 
             <Notes></Notes>
 
@@ -23,6 +23,11 @@
   export default {
     name: 'money',
     components: {Types, Tags, Notes, NumberPad},
+    data() {
+      return {
+        tags: ['衣', '食', '住', '行']
+      }
+    }
   };
 </script>
 
