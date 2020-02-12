@@ -29,6 +29,8 @@
       } else {
         this.selectedTags.push(tag);
       }
+      //事件触发之后将选中的tags传出去
+      this.$emit('update:value',this.selectedTags)
     }
 
     //新建标签
