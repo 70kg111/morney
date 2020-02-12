@@ -62,7 +62,10 @@
     }
 
     ok() {
-      this.$emit('update:value',this.output)
+      this.$emit('update:value', this.output);
+      //保存数据触发的事件
+      this.$emit('submit', this.output);
+      this.output = '0';
     }
   }
 </script>
