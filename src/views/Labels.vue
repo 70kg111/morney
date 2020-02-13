@@ -9,7 +9,7 @@
         </div>
 
         <div class="createTag-wrapper">
-            <button class="createTag" @click="createTag">新建标签</button>
+            <Button class="createTag" @click.native="createTag">新建标签</Button>
         </div>
     </Layout>
 
@@ -20,10 +20,13 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import {tagListModel} from '@/models/tagListModel';
+  import Button from '@/components/Button.vue';
 
   //一开始就获取一下所有保存的标签
   tagListModel.fetch();
-  @Component
+  @Component({
+    components: {Button}
+  })
   export default class Labels extends Vue {
     //获取到的标签展示出来
     tags = tagListModel.data;

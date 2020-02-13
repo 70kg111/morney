@@ -23,8 +23,8 @@
 
 <style lang="scss" scoped>
     .icon {
-        width: 32px;
-        height: 32px;
+        width: 24px;
+        height: 24px;
         vertical-align: -0.15em;
         fill: currentColor;
         overflow: hidden;
