@@ -2,9 +2,14 @@
 
 const localStorageKeyName: string = 'tagList';
 
+type Tag = {
+  id: string;
+  name: string;
+}
+
 type TagListModel = {
-  data: string[]
-  fetch: () => string[]
+  data: Tag[]
+  fetch: () => Tag[]
   create: (name: string) => string
   save: () => void
 }
@@ -19,11 +24,12 @@ const tagListModel: TagListModel = {
   },
   //创建标签
   create(name) {
-    if (this.data.indexOf(name) >= 0) {
+    const names = this.data.map(item => item.name);
+    if (names.indexOf(name) >= 0) {
       window.alert('你已经创建过这个标签了~');
       return '';
     }
-    this.data.push(name);
+    this.data.push({id: name, name: name});
     this.save();
     return name;
   },
