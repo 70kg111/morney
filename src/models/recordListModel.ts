@@ -1,8 +1,8 @@
 //引入mvc思想，vue中已经有了 v 和 c ，这里封装一下 m ，也就是对数据的操作
 
-const localStorageKeyName: string = 'recordList';
+const localStorageKeyName: string = 'recordListModel';
 
-const model = {
+const recordListModel = {
 
   //复制单条数据
   clone(data: RecordItem[] | RecordItem) {
@@ -19,4 +19,4 @@ const model = {
 
 };
 
-export {model};
+export {recordListModel};
