@@ -1,5 +1,7 @@
 //引入mvc思想，vue中已经有了 v 和 c ，这里封装一下 m ，也就是对数据的操作
 
+import createId from '@/lib/createId';
+
 const localStorageKeyName: string = 'tagList';
 
 type Tag = {
@@ -31,7 +33,9 @@ const tagListModel: TagListModel = {
       window.alert('你已经创建过这个标签了~');
       return '';
     }
-    this.data.push({id: name, name: name});
+    const id = createId().toString();
+
+    this.data.push({id, name: name});
     this.save();
     return name;
   },
@@ -44,7 +48,7 @@ const tagListModel: TagListModel = {
         return 'duplicated';
       } else {
         const tag = this.data.filter(item => item.id === id)[0];
-        tag.id = tag.name = name;
+        tag.name = name;
         this.save();
         return 'success';
       }
