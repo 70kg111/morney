@@ -2,11 +2,10 @@
     <div>
         <Layout class-prefix="layout">
 
-            <Tags :dataSource.sync="tags" @update:value="onUpdateTags"></Tags>
+            <Tags :dataSource="tags"></Tags>
 
             <div class="notes">
                 <FormItem @update:value="onUpdateNotes" field-name="备注" placeholder="在这里输入备注"></FormItem>
-
             </div>
 
             <Types :value.sync="record.type"></Types>

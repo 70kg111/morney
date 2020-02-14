@@ -4,7 +4,7 @@
             <button @click="createTag">新增标签</button>
         </div>
         <ul class="current">
-            <li v-for="tag in dataSource" :key="tag.id" @click="toggle(tag)"
+            <li v-for="tag in tagList" :key="tag.id" @click="toggle(tag)"
                 :class="{selected:selectedTags.indexOf(tag) >= 0}">{{tag.name}}
             </li>
         </ul>
@@ -13,12 +13,15 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Prop} from 'vue-property-decorator';
+  import {Component} from 'vue-property-decorator';
+  import store from '@/store/index2';
 
   @Component
   export default class Tags extends Vue {
+
+    tagList = store.fetchTags();
+
     //readonly 表示只读属性，无法更改
-    @Prop(Array) readonly dataSource: string[] | undefined;   //默认数组，外部传过来
     selectedTags: string[] = [];
 
     //标签的选中和取消
@@ -30,19 +33,16 @@
         this.selectedTags.push(tag);
       }
       //事件触发之后将选中的tags传出去
-      this.$emit('update:value',this.selectedTags)
+      this.$emit('update:value', this.selectedTags);
     }
 
     //新建标签
     createTag() {
       const name = window.prompt('请输入标签名：');
-      if (name === '') {
-        window.alert('标签名不能为空');
-      } else if (this.dataSource) {
-        //子组件传值给父组件，修改数据
-        this.$emit('update:dataSource', [...this.dataSource, name]);
+      if (!name) {
+        return window.alert('标签名不能为空');
       }
-
+      store.createTag(name);
     }
   }
 </script>
