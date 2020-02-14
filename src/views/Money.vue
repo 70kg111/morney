@@ -25,7 +25,6 @@
   import Types from '@/components/Money/Types.vue';
   import {Component, Prop, Watch} from 'vue-property-decorator';
   import {recordListModel} from '@/models/recordListModel';
-  import {tagListModel} from '@/models/tagListModel';
 
   //数据库版本，遇到数据库数据不对的时候进行数据迁移
   window.localStorage.setItem('version', '0.0.1');

@@ -23,6 +23,21 @@ Vue.component('Icon', Icon);
 //把数据放在这里让 Money.vue 和 Labels.vue 去读，那么两边都是读取的同一个对象
 window.tagList = tagListModel.fetch();
 
+window.findTag = (id:string) => {
+  return  window.tagList.filter(t => t.id === id)[0];
+};
+
+window.createTag = (name: string) => {
+  const message = tagListModel.create(name);
+};
+
+window.removeTag = (id: string) => {
+  return tagListModel.remove(id);
+};
+
+window.updateTag = (id: string, name: string) => {
+  return tagListModel.update(id, name);
+};
 new Vue({
   //直接去引用整个 router 目录
   router,
