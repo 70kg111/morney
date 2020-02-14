@@ -40,18 +40,19 @@
   //   createdAt?: Date
   // }
 
-  //获取标签
-  const tagList = tagListModel.fetch();
+  //获取标签，外面先获取一次，然后给里面用
+  const recordList = recordListModel.fetch();
 
   @Component({
     components: {Types, Tags, FormItem, NumberPad}
   })
   export default class Money extends Vue {
 
-    tags = tagList;
+    tags = window.tagList;
 
     //对象的初始值
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
+    recordList: RecordItem[] = recordList;
 
     //保存数据的数组
     recordListModel: RecordItem[] = recordListModel.fetch();
@@ -70,17 +71,14 @@
 
     //把数据保存到数组中
     saveRecord() {
-      //深拷贝实现，每次都复制一个和当前对象一样的对象，然后把复制出来的对象传到数组中保存起来
-      const record2: RecordItem = recordListModel.clone(this.record);
-      record2.createdAt = new Date();
-      this.recordList.push(record2);
+      recordListModel.create(this.record);
 
     }
 
     //数组每次变化的时候都保存到本地，就相当于是保存了所有的数据
     @Watch('recordList')
     onRecordListChange() {
-      recordListModel.save(this.recordList);
+      recordListModel.save();
     }
   }
 </script>
@@ -90,7 +88,7 @@
         display: flex;
     }
 
-    .notes{
+    .notes {
         padding: 12px 0;
     }
 
