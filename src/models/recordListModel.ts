@@ -9,11 +9,12 @@ const recordListModel = {
   data: [] as RecordItem[],
 
   //新增一条数据
-  create(record:RecordItem){
+  create(record: RecordItem) {
     //深拷贝实现，每次都复制一个和当前对象一样的对象，然后把复制出来的对象传到数组中保存起来
     const record2: RecordItem = clone(record);
     record2.createdAt = new Date();
     this.data.push(record2);
+    this.save();
   },
   //获取数据
   fetch() {

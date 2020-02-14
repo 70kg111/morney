@@ -23,38 +23,25 @@
   import FormItem from '@/components/Money/FormItem.vue';
   import Tags from '@/components/Money/Tags.vue';
   import Types from '@/components/Money/Types.vue';
-  import {Component, Prop, Watch} from 'vue-property-decorator';
-  import {recordListModel} from '@/models/recordListModel';
+  import {Component} from 'vue-property-decorator';
+  import store from '@/store/index2';
 
   //数据库版本，遇到数据库数据不对的时候进行数据迁移
   window.localStorage.setItem('version', '0.0.1');
-
-  //将所有数据接收后放到一个对象里面，这个对象有以下几种属性，这就是在ts里面声明一个类型
-  //这种全局使用的类型应该放到 custom.d.ts 文件中
-  // type RecordItem = {
-  //   tags: string[]
-  //   notes: string
-  //   type: string
-  //   amount: number
-  //   createdAt?: Date
-  // }
-
-  //获取标签，外面先获取一次，然后给里面用
-  const recordList = recordListModel.fetch();
 
   @Component({
     components: {Types, Tags, FormItem, NumberPad}
   })
   export default class Money extends Vue {
 
-    tags = window.tagList;
+    tags = store.tagList;
 
     //对象的初始值
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
-    recordList: RecordItem[] = recordList;
+    recordList = store.recordList;
 
     //保存数据的数组
-    recordListModel: RecordItem[] = recordListModel.fetch();
+    recordListModel: RecordItem[] = store.recordList;
 
     onUpdateTags(value: string[]) {
       this.record.tags = value;
@@ -70,15 +57,9 @@
 
     //把数据保存到数组中
     saveRecord() {
-      recordListModel.create(this.record);
-
+      store.createRecord(this.record);
     }
 
-    //数组每次变化的时候都保存到本地，就相当于是保存了所有的数据
-    @Watch('recordList')
-    onRecordListChange() {
-      recordListModel.save();
-    }
   }
 </script>
 
