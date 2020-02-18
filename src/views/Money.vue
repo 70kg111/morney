@@ -2,7 +2,7 @@
     <div>
         <Layout class-prefix="layout">
 
-            <Tags :dataSource="tags"></Tags>
+            <Tags></Tags>
 
             <div class="notes">
                 <FormItem @update:value="onUpdateNotes" field-name="备注" placeholder="在这里输入备注"></FormItem>
@@ -23,28 +23,27 @@
   import Tags from '@/components/Money/Tags.vue';
   import Types from '@/components/Money/Types.vue';
   import {Component} from 'vue-property-decorator';
-  import store from '@/store/index2';
+  import store from '@/store/index.ts';
 
   //数据库版本，遇到数据库数据不对的时候进行数据迁移
   window.localStorage.setItem('version', '0.0.1');
 
   @Component({
-    components: {Types, Tags, FormItem, NumberPad}
+    components: {Types, Tags, FormItem, NumberPad},
+    computed: {
+      count() {
+        return store.state.recordList;
+      }
+    }
   })
   export default class Money extends Vue {
 
-    tags = store.tagList;
+    created(){
+      this.$store.commit('fetchRecords')
+    }
 
     //对象的初始值
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
-    recordList = store.recordList;
-
-    //保存数据的数组
-    recordListModel: RecordItem[] = store.recordList;
-
-    onUpdateTags(value: string[]) {
-      this.record.tags = value;
-    }
 
     onUpdateNotes(value: string) {
       this.record.notes = value;
@@ -56,7 +55,7 @@
 
     //把数据保存到数组中
     saveRecord() {
-      store.createRecord(this.record);
+      this.$store.commit('createRecord', this.record);
     }
 
   }

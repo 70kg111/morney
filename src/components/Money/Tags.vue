@@ -14,12 +14,18 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import store from '@/store/index2';
+  import store from '@/store/index.js';
 
-  @Component
+  @Component({
+    computed:{
+      tagList(){
+        //todo
+        //return this.$store.fetchTags()
+        return []
+      }
+    }
+  })
   export default class Tags extends Vue {
-
-    tagList = store.fetchTags();
 
     //readonly 表示只读属性，无法更改
     selectedTags: string[] = [];
@@ -42,7 +48,8 @@
       if (!name) {
         return window.alert('标签名不能为空');
       }
-      store.createTag(name);
+      //TODO
+      //store.createTag(name);
     }
   }
 </script>

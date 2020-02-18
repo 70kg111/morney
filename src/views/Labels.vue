@@ -20,20 +20,27 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import Button from '@/components/Button.vue';
-  import store from '@/store/index2';
+  import store from '@/store/index.js';
 
   @Component({
-    components: {Button}
+    components: {Button},
+    computed:{
+      tags(){
+        return []
+      }
+  }
   })
   export default class Labels extends Vue {
     //获取到的标签展示出来
-    tags = store.tagList;  //知识点1：读的时候去window上面读
+    //TODO
+    //tags = store.tagList;  //知识点1：读的时候去window上面读
 
     //知识点2：写的时候去tagListModel上面写，遵循最小知识原则，把这个2也封装一下
     createTag() {
       const name = window.prompt('请输入标签名：');
       if (name) {
-        store.createTag(name);
+        //todo
+        // store.createTag(name);
       }
     }
 
